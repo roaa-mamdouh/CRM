@@ -1,0 +1,25 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Top Customers",
+   "width": "Half"
+  },
+  {
+   "chart": "Completed Operation",
+   "width": "Half"
+  }
+ ],
+ "creation": "2024-11-17 15:27:11.797789",
+ "dashboard_name": "Lead",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2024-11-17 15:27:11.797789",
+ "modified_by": "Administrator",
+ "module": "FCRM",
+ "name": "Lead",
+ "owner": "Administrator"
+}

@@ -1,0 +1,33 @@
+{
+ "attach_print": 0,
+ "channel": "System Notification",
+ "condition": "doc.duplicated == 1",
+ "creation": "2024-11-19 21:07:15.685709",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "CRM Lead",
+ "enabled": 1,
+ "event": "Custom",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<p>There is a duplicated lead! Please Review.</p>\n",
+ "message_type": "Markdown",
+ "modified": "2024-11-24 13:16:34.072977",
+ "modified_by": "Administrator",
+ "module": "FCRM",
+ "name": "Duplicated Lead Found!",
+ "owner": "Administrator",
+ "property_value": "0",
+ "recipients": [
+  {
+   "receiver_by_document_field": "owner",
+   "receiver_by_role": ""
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "set_property_after_alert": "duplicated",
+ "subject": "Duplicated Lead Found!",
+ "value_changed": "duplicated"
+}
