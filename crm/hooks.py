@@ -254,3 +254,7 @@ doc_events = {
 # auth_hooks = [
 #	"crm.auth.validate"
 # ]
+
+fixtures = [
+    {"dt": "Client Script"}
+]

@@ -1,0 +1,90 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Property",
+  "enabled": 0,
+  "modified": "2024-11-16 16:02:33.671299",
+  "module": null,
+  "name": "Rent or Sale?",
+  "script": "frappe.ui.form.on('Property', {\n\tstatus: function (frm) {\n        if (frm.doc.status === 'On lease' || frm.doc.status === 'Off Lease in 3 Months') {\n            // Show \"price per month/day\"\n            frm.set_df_property('price_per_month_day', 'hidden', 0);\n            frm.set_df_property('price_per_meter', 'hidden', 1);\n        } else if (frm.doc.status === 'On Sale' || frm.doc.status === 'Sold' || frm.doc.status === 'Managed for customer') {\n            // Show \"price per meter\"\n            frm.set_df_property('price_per_month_day', 'hidden', 1);\n            frm.set_df_property('price_per_meter', 'hidden', 0);\n        } else {\n            // Hide both if no match\n            frm.set_df_property('price_per_month_day', 'hidden', 1);\n            frm.set_df_property('price_per_meter', 'hidden', 1);\n        }\n    }\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Unit",
+  "enabled": 1,
+  "modified": "2024-11-16 14:18:29.867998",
+  "module": null,
+  "name": "Unit Rent or Sale?",
+  "script": "frappe.ui.form.on('Unit', {\n\tstatus: function (frm) {\n        if (frm.doc.status === 'On Lease' || frm.doc.status === 'Off Lease in 3 Months') {\n            // Show \"price per month/day\"\n            frm.set_df_property('price_per_month_day', 'hidden', 0);\n            frm.set_df_property('price_per_meter', 'hidden', 1);\n        } else if (frm.doc.status === 'On Sale' || frm.doc.status === 'Sold' || frm.doc.status === 'Managed for customer') {\n            // Show \"price per meter\"\n            frm.set_df_property('price_per_month_day', 'hidden', 1);\n            frm.set_df_property('price_per_meter', 'hidden', 0);\n        } else {\n            // Hide both if no match\n            frm.set_df_property('price_per_month_day', 'hidden', 1);\n            frm.set_df_property('price_per_meter', 'hidden', 1);\n        }\n    }\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "CRM Lead",
+  "enabled": 0,
+  "modified": "2024-11-17 14:05:04.501385",
+  "module": null,
+  "name": "Showing Status Calendar",
+  "script": "frappe.ui.form.on('CRM Lead', {\n\tstatus: function (frm) {\n        if (frm.doc.status === 'Showing') {\n            frappe.prompt([\n                {\n                    label: 'Showing Date',\n                    fieldname: 'showing_date',\n                    fieldtype: 'Date',\n                    reqd: 1\n                }\n            ],\n            (values) => {\n                frm.set_value('showing_date', values.showing_date);\n                frappe.msgprint(__('Showing date has been set to ' + values.showing_date));\n            },\n            __('Set Showing Date'),\n            __('Set'));\n        }\n    }\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "CRM Lead",
+  "enabled": 0,
+  "modified": "2024-11-26 19:39:12.998915",
+  "module": "FCRM",
+  "name": "Visiting",
+  "script": "frappe.ui.form.on('CRM Lead', {\n    status: function (frm) {\n        // Only proceed for specific statuses\n        if (!['Showing', 'Visiting'].includes(frm.doc.status)) return;\n\n        // Prevent double triggering\n        if (frm.doc.__status_checked) return;\n        frm.doc.__status_checked = true;\n\n        frappe.call({\n            method: \"crm.forkanban.check_existing_events\",\n            args: {\n                lead_name: frm.doc.name,\n                lead_status: frm.doc.status\n            },\n            callback: function (response) {\n                if (response.message.exists) {\n                    // Show existing events in a styled table\n                    const events = response.message.events;\n                    const tableHtml = `\n                        <div class=\"event-table-container\">\n                            <table class=\"event-table\">\n                                <thead>\n                                    <tr>\n                                        <th>Subject</th>\n                                        <th>Status</th>\n                                        <th>Starts On</th>\n                                        <th>Sync with Google Calendar</th>\n                                        <th>Google Calendar</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    ${events.map(event => `\n                                        <tr>\n                                            <td>${event.subject}</td>\n                                            <td>${event.status}</td>\n                                            <td>${event.starts_on}</td>\n                                            <td>${event.sync_with_google_calendar ? 'Yes' : 'No'}</td>\n                                            <td>${event.google_calendar || 'N/A'}</td>\n                                        </tr>\n                                    `).join('')}\n                                </tbody>\n                            </table>\n                        </div>\n                    `;\n                    frappe.msgprint(__(`${frm.doc.status} event(s) already exist for this Lead:<br>${tableHtml}`));\n                } else {\n                    // Show a dialog for creating a new event\n                    const dialog = new frappe.ui.Dialog({\n                        title: `Add ${frm.doc.status} Event`,\n                        fields: [\n                            { label: 'Subject', fieldtype: 'Data', fieldname: 'subject', reqd: 1 },\n                            { label: `${frm.doc.status} Description`, fieldtype: 'Small Text', fieldname: 'description' },\n                            { label: 'Starts On', fieldtype: 'Datetime', fieldname: 'starts_on' },\n                            { label: 'Sync with Google Calendar', fieldtype: 'Check', fieldname: 'sync_with_google_calendar' },\n                            { label: 'Google Calendar', fieldtype: 'Link', fieldname: 'google_calendar', options: 'Google Calendar' }\n                        ],\n                        primary_action_label: `Add ${frm.doc.status} Event`,\n                        primary_action(data) {\n                            frappe.call({\n                                method: \"frappe.client.insert\",\n                                args: {\n                                    doc: {\n                                        doctype: 'Event',\n                                        subject: data.subject,\n                                        description: data.description,\n                                        starts_on: data.starts_on,\n                                        sync_with_google_calendar: data.sync_with_google_calendar,\n                                        google_calendar: data.google_calendar,\n                                        reference_doctype: frm.doctype,\n                                        reference_docname: frm.doc.name,\n                                        showing: frm.doc.status === 'Showing' ? 1 : 0,\n                                        visiting: frm.doc.status === 'Visiting' ? 1 : 0\n                                    }\n                                },\n                                callback: function (res) {\n                                    dialog.hide();\n                                    frappe.msgprint(__('Event Added Successfully!'));\n                                }\n                            });\n                        }\n                    });\n                    dialog.show();\n                }\n            }\n        });\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "CRM Lead",
+  "enabled": 1,
+  "modified": "2024-12-04 10:29:50.333946",
+  "module": "FCRM",
+  "name": "Duplicated Lead",
+  "script": "frappe.ui.form.on('CRM Lead', {\n    validate: function(frm) {\n        frappe.call({\n            method: 'frappe.client.get_list',\n            args: {\n                doctype: 'CRM Lead',\n                filters: [\n                    ['phone', '=', frm.doc.phone],\n                    ['name', '!=', frm.doc.name] // Exclude the current document\n                ],\n                fields: ['name', 'duplicated', 'owner'] // Include the owner field for notification\n            },\n            callback: function(response) {\n                if (response.message.length > 0) {\n                    // Update duplicated_label for the existing lead\n                    let existing_lead = response.message[0];\n\n                    frappe.call({\n                        method: 'frappe.client.set_value',\n                        args: {\n                            doctype: 'CRM Lead',\n                            name: existing_lead.name,\n                            fieldname: 'duplicated',\n                            value: 1\n                        },\n                        callback: function() {\n                            frappe.msgprint({\n                                message: __('Phone number already exists for Lead {0}', [existing_lead.name]),\n                                indicator: 'orange',\n                                alert: true\n                            });\n                            frappe.validated = false; // Prevent saving the current lead\n                        }\n                    });\n                }\n            }\n        });\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Property",
+  "enabled": 1,
+  "modified": "2024-11-23 22:15:55.085129",
+  "module": null,
+  "name": "Reserve Button",
+  "script": "frappe.ui.form.on('Property', {\n    refresh: function(frm) {\n        // Add a custom button for Reservation\n        frm.add_custom_button(__('Reserve'), function() {\n            check_existing_reservation_and_open_dialog(frm);\n        });\n\n        // Add a custom button for Cancel Reservation\n        frm.add_custom_button(__('Cancel Reservation'), function() {\n            cancel_existing_reservation(frm);\n        });\n    }\n});\n\nfunction check_existing_reservation_and_open_dialog(frm) {\n    // Check if a reservation already exists for this property\n    frappe.call({\n        method: 'frappe.client.get_list',\n        args: {\n            doctype: 'Reservation',\n            filters: {\n                property_unit: frm.doc.name,\n                status: 'Reserve'\n            },\n            fields: ['name']\n        },\n        callback: function(response) {\n            if (response.message && response.message.length > 0) {\n                frappe.msgprint({\n                    message: __('A reservation already exists for this property.'),\n                    indicator: 'orange',\n                    alert: true\n                });\n            } else {\n                open_reservation_dialog(frm);\n            }\n        }\n    });\n}\n\nfunction open_reservation_dialog(frm) {\n    // Create a dialog for the Reservation Doctype\n    const dialog = new frappe.ui.Dialog({\n        title: __('Make a Reservation'),\n        fields: [\n            {\n                label: 'Property',\n                fieldname: 'property',\n                fieldtype: 'Link',\n                options: 'Property',\n                default: frm.doc.name,\n                read_only: 1\n            },\n            {\n                label: 'Reserved By',\n                fieldname: 'reserved_by',\n                fieldtype: 'Link',\n                options: 'CRM Lead',\n                reqd: 1 // Make this field mandatory\n            },\n            {\n                label: 'Status',\n                fieldname: 'status',\n                fieldtype: 'Select',\n                options: ['Reserve', 'Cancel'],\n                default: 'Reserve'\n            },\n            {\n                label: 'Reservation Date',\n                fieldname: 'reservation_date',\n                fieldtype: 'Date',\n                default: frappe.datetime.now_date()\n            }\n        ],\n        primary_action_label: __('Submit'),\n        primary_action: function(values) {\n            // Call a server-side method to create the Reservation and update Property\n            frappe.call({\n                method: 'frappe.client.insert',\n                args: {\n                    doc: {\n                        doctype: 'Reservation',\n                        property_unit: values.property,\n                        reserved_by: values.reserved_by,\n                        status: values.status,\n                        reservation_date: values.reservation_date\n                    }\n                },\n                callback: function(response) {\n                    if (response.message) {\n                        frappe.msgprint({\n                            message: __('Reservation created successfully.'),\n                            indicator: 'green',\n                            alert: true\n                        });\n                        // Update the Property status to \"Booked\"\n                        frm.set_value('status', 'Booked');\n                        frm.save();\n                    }\n                }\n            });\n            dialog.hide();\n        }\n    });\n\n    dialog.show();\n}\n\nfunction cancel_existing_reservation(frm) {\n    // Check if a reservation exists for the property\n    frappe.call({\n        method: 'frappe.client.get_list',\n        args: {\n            doctype: 'Reservation',\n            filters: {\n                property_unit: frm.doc.name,\n                status: 'Reserve'\n            },\n            fields: ['name']\n        },\n        callback: function(response) {\n            if (response.message && response.message.length > 0) {\n                const reservation_name = response.message[0].name;\n                // Update the reservation status to \"Cancel\"\n                frappe.call({\n                    method: 'frappe.client.set_value',\n                    args: {\n                        doctype: 'Reservation',\n                        name: reservation_name,\n                        fieldname: 'status',\n                        value: 'Cancel'\n                    },\n                    callback: function() {\n                        frappe.msgprint({\n                            message: __('Reservation canceled successfully.'),\n                            indicator: 'green',\n                            alert: true\n                        });\n                        // Update the Property status to \"Available\"\n                        frm.set_value('status', 'Available');\n                        frm.save();\n                    }\n                });\n            } else {\n                frappe.msgprint({\n                    message: __('No active reservation exists for this property.'),\n                    indicator: 'orange',\n                    alert: true\n                });\n            }\n        }\n    });\n}\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "CRM Lead",
+  "enabled": 1,
+  "modified": "2024-11-26 15:38:54.026218",
+  "module": null,
+  "name": "Add",
+  "script": "frappe.ui.form.on('CRM Lead', {\n    onload: function (frm) {\n        // Override the \"Add CRM Lead\" button\n        $(\".btn-primary:contains('Add CRM Lead')\").on(\"click\", function () {\n            frappe.prompt(\n                [\n                    {\n                        label: 'Full Name',\n                        fieldname: 'full_name',\n                        fieldtype: 'Data',\n                        reqd: 1\n                    },\n                    {\n                        label: 'Status',\n                        fieldname: 'status',\n                        fieldtype: 'Select',\n                        options: ['New', 'Showing', 'Qualified', 'Visiting'],\n                        reqd: 1\n                    },\n                    {\n                        label: 'Assigned To',\n                        fieldname: 'assigned_to',\n                        fieldtype: 'Link',\n                        options: 'User',\n                        reqd: 1\n                    }\n                ],\n                function (values) {\n                    frappe.call({\n                        method: \"frappe.client.insert\",\n                        args: {\n                            doc: {\n                                doctype: \"CRM Lead\",\n                                full_name: values.full_name,\n                                status: values.status,\n                                assigned_to: values.assigned_to\n                            }\n                        },\n                        callback: function (r) {\n                            if (r.message) {\n                                frappe.msgprint(__('CRM Lead Created Successfully'));\n                                frappe.set_route('Form', 'CRM Lead', r.message.name);\n                            }\n                        }\n                    });\n                },\n                __('Enter Mandatory Fields'),\n                __('Create')\n            );\n        });\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Property",
+  "enabled": 1,
+  "modified": "2024-12-01 13:13:39.209360",
+  "module": null,
+  "name": "Maps",
+  "script": "frappe.ui.form.on('Property', {\n\trefresh(frm) {\n\t\tfrm.fields_dict.location.map.setView([frm.doc.latitude, frm.doc.longitude], 13);\n\t}\n})",
+  "view": "Form"
+ }
+]

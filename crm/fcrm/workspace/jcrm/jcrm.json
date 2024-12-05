@@ -1,0 +1,59 @@
+{
+ "charts": [
+  {
+   "chart_name": "Incoming Leads!",
+   "label": "Incoming Leads"
+  }
+ ],
+ "content": "[{\"id\":\"MKDLtvXM5j\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"New Leads\",\"col\":4}},{\"id\":\"x2bW6ZqYHj\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Follow Ups\",\"col\":4}},{\"id\":\"aet4OYM3kV\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Top Leads\",\"col\":4}},{\"id\":\"C9wsFLBIml\",\"type\":\"paragraph\",\"data\":{\"text\":\"<span class=\\\"h3\\\">Events</span>\",\"col\":12}},{\"id\":\"N4bcxHYPNr\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Today's Showings\",\"col\":4}},{\"id\":\"-wvuvEr2-q\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Today's Visits\",\"col\":4}},{\"id\":\"VPbLzOBAG0\",\"type\":\"paragraph\",\"data\":{\"text\":\"<span class=\\\"h3\\\">Charts</span>\",\"col\":12}},{\"id\":\"7Rw1fOZt4K\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Incoming Leads\",\"col\":12}}]",
+ "creation": "2024-11-18 21:34:00.472728",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "filter",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "JCRM",
+ "links": [],
+ "modified": "2024-12-04 10:32:31.020778",
+ "modified_by": "Administrator",
+ "module": "FCRM",
+ "name": "JCRM",
+ "number_cards": [
+  {
+   "label": "New Leads",
+   "number_card_name": "New Leads"
+  },
+  {
+   "label": "Follow Ups",
+   "number_card_name": "Follow Ups"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Event",
+   "label": "Today's Showings",
+   "quick_list_filter": "[[\"Event\",\"showing\",\"=\",1,false],[\"Event\",\"starts_on\",\"Timespan\",\"today\",false]]"
+  },
+  {
+   "document_type": "Event",
+   "label": "Today's Visits",
+   "quick_list_filter": "[[\"Event\",\"visiting\",\"=\",1,false],[\"Event\",\"starts_on\",\"Timespan\",\"today\",false]]"
+  },
+  {
+   "document_type": "CRM Lead",
+   "label": "Top Leads",
+   "quick_list_filter": "[[\"CRM Lead\",\"rating\",\">=\",0.8,false]]"
+  }
+ ],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [],
+ "title": "JCRM"
+}
