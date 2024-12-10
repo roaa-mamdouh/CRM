@@ -1,0 +1,21 @@
+[
+ {
+  "allow_guest": 0,
+  "api_method": null,
+  "cron_format": null,
+  "disabled": 1,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "After Save",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "modified": "2024-12-05 13:45:01.150126",
+  "module": "FCRM",
+  "name": "Duplicate Lead Notification",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "CRM Lead",
+  "script": "def send_notification(doc, method):\n    \"\"\"\n    Sends a notification to the specified recipient when the 'duplicated' label of a CRM Lead is changed to 'true'.\n    \"\"\"\n    if doc.doctype == \"CRM Lead\" and doc.duplicated and doc.has_value_changed('duplicated'):\n        recipient = \"mamdouhroaa3@gmail.com\"  # Replace with the actual user ID\n        subject = \"Duplicate Lead Detected\"\n        message = f\"Lead {doc.name} has been marked as duplicate.\"\n\n        notification_doc = frappe.get_doc({\n            \"doctype\": \"Notification Log\",\n            \"for_user\": recipient,\n            \"subject\": subject,\n            \"email_content\": message,\n            \"type\": \"Alert\"\n        })\n\n        notification_doc.insert(ignore_permissions=True)\n        frappe.db.commit()\n        frappe.msgprint(f\"Notification sent to {recipient}\")\n\n# Add a hook to trigger the function when a Lead is updated\nfrappe.utils.add_to_date_hook(\"CRM Lead\", \"on_update\", send_notification)",
+  "script_type": "DocType Event"
+ }
+]

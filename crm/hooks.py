@@ -256,5 +256,24 @@ doc_events = {
 # ]
 
 fixtures = [
-    {"dt": "Client Script"}
+    {"dt": "Client Script", "filters": [
+         [
+             "module", "=", "FCRM"
+         ]
+ ]},
+    {"dt": "Server Script", "filters": [
+         [
+             "module", "=", "FCRM"
+         ]
+ ]},
+    {"dt": "Dashboard Chart", "filters": [
+         [
+             "module", "=", "FCRM"
+         ]
+ ]},
+    {"dt": "Number Card", "filters": [
+         [
+             "module", "=", "FCRM"
+         ]
+ ]}
 ]
