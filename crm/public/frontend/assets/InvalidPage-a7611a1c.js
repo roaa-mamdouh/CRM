@@ -1,2 +1,0 @@
-import{L as o}from"./LeadsIcon-86dc61b1.js";import{r as c,b as n,c as r,e as s,d as e,w as t,H as d}from"./index-94cddbf2.js";const l={class:"grid h-full place-items-center px-4 py-20 text-center text-lg text-gray-600"},_={class:"space-y-2"},i=s("div",null,"Invalid page or not permitted to access",-1),h={__name:"InvalidPage",setup(p){return(m,u)=>{const a=c("Button");return n(),r("div",l,[s("div",_,[i,e(a,{route:{name:"Leads"}},{prefix:t(()=>[e(o,{class:"w-4"})]),default:t(()=>[d(" Leads ")]),_:1})])])}}};export{h as default};
-//# sourceMappingURL=InvalidPage-a7611a1c.js.map
