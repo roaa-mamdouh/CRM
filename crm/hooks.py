@@ -254,3 +254,26 @@ doc_events = {
 # auth_hooks = [
 #	"crm.auth.validate"
 # ]
+
+fixtures = [
+    {"dt": "Client Script", "filters": [
+         [
+             "module", "=", "FCRM"
+         ]
+ ]},
+    {"dt": "Server Script", "filters": [
+         [
+             "module", "=", "FCRM"
+         ]
+ ]},
+    {"dt": "Dashboard Chart", "filters": [
+         [
+             "module", "=", "FCRM"
+         ]
+ ]},
+    {"dt": "Number Card", "filters": [
+         [
+             "module", "=", "FCRM"
+         ]
+ ]}
+]
