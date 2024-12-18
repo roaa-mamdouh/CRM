@@ -98,5 +98,30 @@
   "show_percentage_stats": 1,
   "stats_time_interval": "Yearly",
   "type": "Document Type"
+ },
+ {
+  "aggregate_function_based_on": "",
+  "color": null,
+  "docstatus": 0,
+  "doctype": "Number Card",
+  "document_type": "CRM Lead",
+  "dynamic_filters_json": "[]",
+  "filters_config": null,
+  "filters_json": "[]",
+  "function": "Count",
+  "is_public": 1,
+  "is_standard": 1,
+  "label": "Total Leads",
+  "method": null,
+  "modified": "2024-12-17 19:25:35.908287",
+  "module": "FCRM",
+  "name": "Total Leads",
+  "parent_document_type": "",
+  "report_field": null,
+  "report_function": "Sum",
+  "report_name": null,
+  "show_percentage_stats": 1,
+  "stats_time_interval": "Daily",
+  "type": "Document Type"
  }
 ]
