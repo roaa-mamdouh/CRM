@@ -275,5 +275,8 @@ fixtures = [
          [
              "module", "=", "FCRM"
          ]
- ]}
+ ]},
+    {"dt": "Facilities"},
+    {"dt": "Category"},
+    
 ]
