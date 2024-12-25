@@ -12,6 +12,7 @@
   {
    "fieldname": "facility",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Facility",
    "options": "Facilities"
   }
@@ -19,7 +20,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-01 12:53:46.220608",
+ "modified": "2024-12-24 17:17:33.974842",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "Project Facilities",
