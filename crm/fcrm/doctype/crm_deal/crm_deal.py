@@ -13,8 +13,7 @@ from crm.fcrm.doctype.crm_status_change_log.crm_status_change_log import add_sta
 
 class CRMDeal(Document):
 	def before_validate(self):
-		self.set_sla()
-		print("hello 1")
+		#self.set_sla()
 		existing_lead_name = frappe.db.get_value('CRM Lead', {'phone': self.phone}, 'name')
 
 		if existing_lead_name:
@@ -22,10 +21,9 @@ class CRMDeal(Document):
 			frappe.msgprint(f"Duplicate lead found: {existing_lead_name}")
 		else:
 			frappe.msgprint("No duplicate lead found.")
-		print("hello 2")
 
 	def validate(self):
-		self.set_primary_contact()
+		#self.set_primary_contact()
 		self.set_primary_email_mobile_no()
 		if not self.is_new() and self.has_value_changed("deal_owner") and self.deal_owner:
 			self.share_with_agent(self.deal_owner)
@@ -38,20 +36,21 @@ class CRMDeal(Document):
 			self.assign_agent(self.deal_owner)
 
 	def before_save(self):
-		self.apply_sla()
+                pass
+		#self.apply_sla()
 
-	def set_primary_contact(self, contact=None):
-		if not self.contacts:
-			return
+	#def set_primary_contact(self, contact=None):
+	#	if not self.contacts:
+	#		return
 
-		if not contact and len(self.contacts) == 1:
-			self.contacts[0].is_primary = 1
-		elif contact:
-			for d in self.contacts:
-				if d.contact == contact:
-					d.is_primary = 1
-				else:
-					d.is_primary = 0
+	#	if not contact and len(self.contacts) == 1:
+	#		self.contacts[0].is_primary = 1
+	#	elif contact:
+	#		for d in self.contacts:
+	#			if d.contact == contact:
+	#				d.is_primary = 1
+	#			else:
+	#				d.is_primary = 0
 
 	def set_primary_email_mobile_no(self):
 		if not self.contacts:
@@ -111,28 +110,28 @@ class CRMDeal(Document):
 				frappe.share.remove(self.doctype, self.name, user)
 
 
-	def set_sla(self):
-		"""
-		Find an SLA to apply to the deal.
-		"""
-		if self.sla: return
+	#def set_sla(self):
+	#	"""
+	#	Find an SLA to apply to the deal.
+	#	"""
+	#	if self.sla: return
+        
+	#	sla = get_sla(self)
+	#	if not sla:
+	#		self.first_responded_on = None
+	#		self.first_response_time = None
+	#		return
+	#	self.sla = sla.name
 
-		sla = get_sla(self)
-		if not sla:
-			self.first_responded_on = None
-			self.first_response_time = None
-			return
-		self.sla = sla.name
-
-	def apply_sla(self):
-		"""
-		Apply SLA if set.
-		"""
-		if not self.sla:
-			return
-		sla = frappe.get_last_doc("CRM Service Level Agreement", {"name": self.sla})
-		if sla:
-			sla.apply(self)
+	#def apply_sla(self):
+	#	"""
+	#	Apply SLA if set.
+	#	"""
+	#	if not self.sla:
+	#		return
+	#	sla = frappe.get_last_doc("CRM Service Level Agreement", {"name": self.sla})
+	#	if sla:
+	#		sla.apply(self)
 
 	@staticmethod
 	def default_list_data():

@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Deals\"}}]",
+ "content": "[{\"id\":\"yCqFsKFOcV\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Deals</span>\",\"col\":12}},{\"id\":\"nwmnip4k_c\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Deals\",\"col\":3}}]",
  "creation": "2024-11-19 12:57:08.990581",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Deals",
  "links": [],
- "modified": "2024-12-18 17:08:59.725221",
+ "modified": "2024-12-26 16:53:08.811206",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "Deals",
@@ -24,6 +24,16 @@
  "quick_lists": [],
  "roles": [],
  "sequence_id": 5.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Yellow",
+   "doc_view": "Kanban",
+   "kanban_board": "Deal Kanban",
+   "label": "Deals",
+   "link_to": "CRM Deal",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
  "title": "Deals"
 }

@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Tasks\"}}]",
+ "content": "[{\"id\":\"8uMyJV8Ksz\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Tasks</span>\",\"col\":12}},{\"id\":\"6xS4hiWKSa\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tasks\",\"col\":3}}]",
  "creation": "2024-11-19 13:03:35.950758",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Tasks",
  "links": [],
- "modified": "2024-12-18 17:08:43.182879",
+ "modified": "2024-12-26 15:36:46.113735",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "Tasks",
@@ -24,6 +24,16 @@
  "quick_lists": [],
  "roles": [],
  "sequence_id": 7.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "Kanban",
+   "kanban_board": "Task Kanban",
+   "label": "Tasks",
+   "link_to": "CRM Task",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
  "title": "Tasks"
 }

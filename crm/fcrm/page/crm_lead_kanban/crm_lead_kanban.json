@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2024-12-26 15:16:44.179791",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2024-12-26 15:16:44.179791",
+ "modified_by": "Administrator",
+ "module": "FCRM",
+ "name": "crm-lead-kanban",
+ "owner": "Administrator",
+ "page_name": "crm-lead-kanban",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 1,
+ "title": "CRM Lead Kanban"
+}

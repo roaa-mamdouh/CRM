@@ -335,18 +335,46 @@ class CRMLead(Document):
 
 
 @frappe.whitelist()
-def convert_to_deal(lead, doc=None):
-	if not (doc and doc.flags.get("ignore_permissions")) and not frappe.has_permission("CRM Lead", "write", lead):
-		frappe.throw(_("Not allowed to convert Lead to Deal"), frappe.PermissionError)
+def convert_to_deal(lead):
+    if not frappe.has_permission("CRM Lead", "write", lead):
+        frappe.throw(_("Not allowed to convert Lead to Deal"), frappe.PermissionError)
 
-	lead = frappe.get_cached_doc("CRM Lead", lead)
-	if frappe.db.exists("CRM Lead Status", "Qualified"):
-		lead.status = "Qualified"
-	lead.converted = 1
-	if lead.sla and frappe.db.exists("CRM Communication Status", "Replied"):
-		lead.communication_status = "Replied"
-	lead.save(ignore_permissions=True)
-	contact = lead.create_contact(False)
-	organization = lead.create_organization()
-	deal = lead.create_deal(contact, organization)
-	return deal
+    lead_doc = frappe.get_doc("CRM Lead", lead)
+    if not lead_doc:
+        frappe.throw(_("Lead does not exist"))
+
+    if lead_doc.converted:
+        frappe.throw(_("This Lead has already been converted to a Deal"))
+
+    # Update lead status
+    if frappe.db.exists("CRM Lead Status", "Qualified"):
+        lead_doc.status = "Qualified"
+    lead_doc.converted = 1
+
+
+    lead_doc.save(ignore_permissions=True)
+
+
+    # Create deal
+    deal = frappe.get_doc({
+        "doctype": "CRM Deal",
+        "naming_series": "CRM-DEAL-.YYYY.-",
+        "lead": lead_doc.name,
+        "lead_name": lead_doc.lead_name,
+        "status": "Qualification",
+        "deal_owner": frappe.session.user
+    })
+    deal.insert(ignore_permissions=True)
+
+    return deal.name
+
+def get_permission_query_conditions_for_crm_lead(user):
+    if "System Manager" in frappe.get_roles(user):
+        return None
+    elif "Sales User" in frappe.get_roles(user):
+        escaped_user = frappe.db.escape(user)
+        return (
+            f"(`tabCRM Lead`.owner = {escaped_user} "
+            f"or `tabCRM Lead`.lead_owner = {escaped_user}) "
+            f"or (`tabCRM Lead`.name in (select `tabCRM Lead`.name from `tabCRM Lead` where (`tabCRM Lead`._assign like '%\"{user}\"%')))"
+        )

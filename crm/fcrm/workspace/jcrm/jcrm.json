@@ -18,7 +18,7 @@
  "is_hidden": 0,
  "label": "JCRM",
  "links": [],
- "modified": "2024-12-24 16:33:33.983571",
+ "modified": "2024-12-25 16:22:53.138937",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "JCRM",
@@ -41,19 +41,19 @@
  "public": 1,
  "quick_lists": [
   {
+   "document_type": "CRM Lead",
+   "label": "Top Leads",
+   "quick_list_filter": "[[\"CRM Lead\",\"rating\",\">=\",0.8,false]]"
+  },
+  {
    "document_type": "Event",
    "label": "Today's Showings",
-   "quick_list_filter": "[[\"Event\",\"showing\",\"=\",1,false],[\"Event\",\"starts_on\",\"Timespan\",\"today\",false]]"
+   "quick_list_filter": "[[\"Event\",\"event_category\",\"=\",\"Showing\",false],[\"Event\",\"starts_on\",\"Timespan\",\"today\",false]]"
   },
   {
    "document_type": "Event",
    "label": "Today's Visits",
-   "quick_list_filter": "[[\"Event\",\"visiting\",\"=\",1,false],[\"Event\",\"starts_on\",\"Timespan\",\"today\",false]]"
-  },
-  {
-   "document_type": "CRM Lead",
-   "label": "Top Leads",
-   "quick_list_filter": "[[\"CRM Lead\",\"rating\",\">=\",0.8,false]]"
+   "quick_list_filter": "[[\"Event\",\"event_category\",\"=\",\"Visiting\",false],[\"Event\",\"starts_on\",\"Timespan\",\"today\",false]]"
   }
  ],
  "roles": [],

@@ -4,7 +4,7 @@
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2023-07-24 12:19:39.616298",
- "default_view": "List",
+ "default_view": "Report",
  "doctype": "DocType",
  "editable_grid": 1,
  "email_append_to": 1,
@@ -18,13 +18,10 @@
   "phone",
   "rating",
   "details",
-  "organization",
-  "website",
-  "territory",
-  "industry",
   "job_title",
   "source",
   "lead_owner",
+  "feedback",
   "organization_tab",
   "section_break_uixv",
   "naming_series",
@@ -38,18 +35,6 @@
   "image",
   "converted",
   "duplicated",
-  "is_duplicated",
-  "sla_tab",
-  "sla",
-  "sla_creation",
-  "column_break_ffnp",
-  "sla_status",
-  "communication_status",
-  "response_details_section",
-  "response_by",
-  "column_break_pweh",
-  "first_response_time",
-  "first_responded_on",
   "log_tab",
   "status_change_log"
  ],
@@ -110,11 +95,6 @@
    "unique": 1
   },
   {
-   "fieldname": "website",
-   "fieldtype": "Data",
-   "label": "Website"
-  },
-  {
    "fieldname": "phone",
    "fieldtype": "Data",
    "label": "Phone",
@@ -152,12 +132,6 @@
    "options": "CRM Lead Source"
   },
   {
-   "fieldname": "industry",
-   "fieldtype": "Link",
-   "label": "Industry",
-   "options": "CRM Industry"
-  },
-  {
    "fieldname": "image",
    "fieldtype": "Attach Image",
    "hidden": 1,
@@ -182,11 +156,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "organization",
-   "fieldtype": "Data",
-   "label": "Organization"
-  },
-  {
    "default": "0",
    "fieldname": "converted",
    "fieldtype": "Check",
@@ -203,75 +172,6 @@
    "fieldname": "details",
    "fieldtype": "Tab Break",
    "label": "Details"
-  },
-  {
-   "fieldname": "sla_tab",
-   "fieldtype": "Tab Break",
-   "label": "SLA",
-   "read_only": 1
-  },
-  {
-   "fieldname": "sla",
-   "fieldtype": "Link",
-   "label": "SLA",
-   "options": "CRM Service Level Agreement"
-  },
-  {
-   "fieldname": "sla_creation",
-   "fieldtype": "Datetime",
-   "label": "SLA Creation",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_ffnp",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "sla_status",
-   "fieldtype": "Select",
-   "label": "SLA Status",
-   "options": "\nFirst Response Due\nFailed\nFulfilled",
-   "read_only": 1
-  },
-  {
-   "fieldname": "response_details_section",
-   "fieldtype": "Section Break",
-   "label": "Response Details"
-  },
-  {
-   "fieldname": "response_by",
-   "fieldtype": "Datetime",
-   "label": "Response By",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_pweh",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "first_response_time",
-   "fieldtype": "Duration",
-   "label": "First Response Time",
-   "read_only": 1
-  },
-  {
-   "fieldname": "first_responded_on",
-   "fieldtype": "Datetime",
-   "label": "First Responded On",
-   "read_only": 1
-  },
-  {
-   "default": "Open",
-   "fieldname": "communication_status",
-   "fieldtype": "Link",
-   "label": "Communication Status",
-   "options": "CRM Communication Status"
-  },
-  {
-   "fieldname": "territory",
-   "fieldtype": "Link",
-   "label": "Territory",
-   "options": "CRM Territory"
   },
   {
    "fieldname": "log_tab",
@@ -299,15 +199,16 @@
    "label": "Duplicated"
   },
   {
-   "fieldname": "is_duplicated",
-   "fieldtype": "Int",
-   "label": "Is Duplicated"
+   "fieldname": "feedback",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "FeedBack"
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-26 18:07:53.341015",
+ "modified": "2024-12-26 11:33:35.892781",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",
@@ -315,8 +216,6 @@
  "owner": "Administrator",
  "permissions": [
   {
-   "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -346,5 +245,6 @@
  "sort_order": "DESC",
  "states": [],
  "title_field": "lead_name",
- "track_changes": 1
+ "track_changes": 1,
+ "track_seen": 1
 }

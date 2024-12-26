@@ -117,9 +117,9 @@ before_uninstall = "crm.uninstall.before_uninstall"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-#	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
+permission_query_conditions = {
+    "CRM Lead": "crm.fcrm.doctype.crm_lead.crm_lead.get_permission_query_conditions_for_crm_lead",
+}
 #
 # has_permission = {
 #	"Event": "frappe.desk.doctype.event.event.has_permission",
@@ -276,6 +276,5 @@ fixtures = [
              "module", "=", "FCRM"
          ]
  ]},
-
     
 ]

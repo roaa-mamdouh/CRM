@@ -9,31 +9,17 @@
  "field_order": [
   "organization_tab",
   "naming_series",
-  "organization",
   "next_step",
   "probability",
   "column_break_ijan",
   "status",
   "close_date",
   "deal_owner",
-  "contacts_tab",
-  "contacts",
-  "contact",
   "lead_details_tab",
   "lead",
   "source",
   "column_break_wsde",
   "lead_name",
-  "organization_details_section",
-  "organization_name",
-  "website",
-  "no_of_employees",
-  "job_title",
-  "column_break_xbyf",
-  "territory",
-  "currency",
-  "annual_revenue",
-  "industry",
   "person_section",
   "salutation",
   "first_name",
@@ -43,44 +29,14 @@
   "mobile_no",
   "phone",
   "gender",
-  "sla_tab",
-  "sla",
-  "sla_creation",
-  "column_break_pfvq",
-  "sla_status",
-  "communication_status",
-  "response_details_section",
-  "response_by",
-  "column_break_hpvj",
-  "first_response_time",
-  "first_responded_on",
   "log_tab",
   "status_change_log"
  ],
  "fields": [
   {
-   "fieldname": "organization",
-   "fieldtype": "Link",
-   "label": "Organization",
-   "options": "CRM Organization"
-  },
-  {
    "fieldname": "probability",
    "fieldtype": "Percent",
    "label": "Probability"
-  },
-  {
-   "fetch_from": ".annual_revenue",
-   "fieldname": "annual_revenue",
-   "fieldtype": "Currency",
-   "label": "Amount",
-   "options": "currency"
-  },
-  {
-   "fetch_from": ".website",
-   "fieldname": "website",
-   "fieldtype": "Data",
-   "label": "Website"
   },
   {
    "fieldname": "close_date",
@@ -112,11 +68,6 @@
    "options": "CRM-DEAL-.YYYY.-"
   },
   {
-   "fieldname": "contacts_tab",
-   "fieldtype": "Tab Break",
-   "label": "Contacts"
-  },
-  {
    "fieldname": "email",
    "fieldtype": "Data",
    "label": "Email",
@@ -131,18 +82,12 @@
   {
    "default": "Qualification",
    "fieldname": "status",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "CRM Deal Status",
+   "options": "Lost\nWon\nReady to Close\nNegotiation\nProposal/Quotation\nDemo/Making\nQualification",
    "reqd": 1,
    "search_index": 1
-  },
-  {
-   "fieldname": "contacts",
-   "fieldtype": "Table",
-   "label": "Contacts",
-   "options": "CRM Contacts"
   },
   {
    "fieldname": "organization_tab",
@@ -150,91 +95,10 @@
    "label": "Organization"
   },
   {
-   "fieldname": "sla_tab",
-   "fieldtype": "Tab Break",
-   "label": "SLA",
-   "read_only": 1
-  },
-  {
-   "fieldname": "sla",
-   "fieldtype": "Link",
-   "label": "SLA",
-   "options": "CRM Service Level Agreement"
-  },
-  {
-   "fieldname": "response_by",
-   "fieldtype": "Datetime",
-   "label": "Response By",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_pfvq",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "sla_status",
-   "fieldtype": "Select",
-   "label": "SLA Status",
-   "options": "\nFirst Response Due\nFailed\nFulfilled",
-   "read_only": 1
-  },
-  {
-   "fieldname": "sla_creation",
-   "fieldtype": "Datetime",
-   "label": "SLA Creation",
-   "read_only": 1
-  },
-  {
-   "fieldname": "response_details_section",
-   "fieldtype": "Section Break",
-   "label": "Response Details"
-  },
-  {
-   "fieldname": "column_break_hpvj",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "first_response_time",
-   "fieldtype": "Duration",
-   "label": "First Response Time",
-   "read_only": 1
-  },
-  {
-   "fieldname": "first_responded_on",
-   "fieldtype": "Datetime",
-   "label": "First Responded On",
-   "read_only": 1
-  },
-  {
-   "default": "Open",
-   "fieldname": "communication_status",
-   "fieldtype": "Link",
-   "label": "Communication Status",
-   "options": "CRM Communication Status"
-  },
-  {
-   "fetch_from": ".territory",
-   "fieldname": "territory",
-   "fieldtype": "Link",
-   "label": "Territory",
-   "options": "CRM Territory"
-  },
-  {
    "fieldname": "source",
    "fieldtype": "Link",
    "label": "Source",
    "options": "CRM Lead Source"
-  },
-  {
-   "fieldname": "no_of_employees",
-   "fieldtype": "Select",
-   "label": "No. of Employees",
-   "options": "1-10\n11-50\n51-200\n201-500\n501-1000\n1000+"
-  },
-  {
-   "fieldname": "job_title",
-   "fieldtype": "Data",
-   "label": "Job Title"
   },
   {
    "fieldname": "phone",
@@ -273,26 +137,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "organization_details_section",
-   "fieldtype": "Section Break",
-   "label": "Organization Details"
-  },
-  {
-   "fieldname": "organization_name",
-   "fieldtype": "Data",
-   "label": "Organization Name"
-  },
-  {
-   "fieldname": "column_break_xbyf",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "industry",
-   "fieldtype": "Link",
-   "label": "Industry",
-   "options": "CRM Industry"
-  },
-  {
    "fieldname": "person_section",
    "fieldtype": "Section Break",
    "label": "Person"
@@ -322,23 +166,11 @@
    "fieldtype": "Link",
    "label": "Gender",
    "options": "Gender"
-  },
-  {
-   "fieldname": "contact",
-   "fieldtype": "Link",
-   "label": "Contact",
-   "options": "Contact"
-  },
-  {
-   "fieldname": "currency",
-   "fieldtype": "Link",
-   "label": "Currency",
-   "options": "Currency"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-17 18:34:15.873610",
+ "modified": "2024-12-26 16:43:50.644229",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Deal",
@@ -374,6 +206,6 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "organization",
+ "title_field": "lead_name",
  "track_changes": 1
 }
