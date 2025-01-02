@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Deals",
  "links": [],
- "modified": "2024-12-26 16:53:08.811206",
+ "modified": "2024-12-30 12:11:01.009566",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "Deals",
@@ -26,7 +26,7 @@
  "sequence_id": 5.0,
  "shortcuts": [
   {
-   "color": "Yellow",
+   "color": "Grey",
    "doc_view": "Kanban",
    "kanban_board": "Deal Kanban",
    "label": "Deals",

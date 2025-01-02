@@ -14,7 +14,8 @@ from crm.fcrm.doctype.crm_status_change_log.crm_status_change_log import add_sta
 
 class CRMLead(Document):
 	def before_validate(self):
-		self.set_sla()
+                pass
+		#self.set_sla()
 
 	def validate(self):
 		self.set_full_name()
@@ -32,7 +33,8 @@ class CRMLead(Document):
 			self.assign_agent(self.lead_owner)
 
 	def before_save(self):
-		self.apply_sla()
+                pass
+		#self.apply_sla()
 
 	def set_full_name(self):
 		if self.first_name:
@@ -41,19 +43,21 @@ class CRMLead(Document):
 			)
 
 	def set_lead_name(self):
-		if not self.lead_name:
+                pass
+		#if not self.lead_name:
 			# Check for leads being created through data import
-			if not self.organization and not self.email and not self.flags.ignore_mandatory:
-				frappe.throw(_("A Lead requires either a person's name or an organization's name"))
-			elif self.organization:
-				self.lead_name = self.organization
-			elif self.email:
-				self.lead_name = self.email.split("@")[0]
-			else:
-				self.lead_name = "Unnamed Lead"
+		#	if not self.organization and not self.email and not self.flags.ignore_mandatory:
+		#		frappe.throw(_("A Lead requires either a person's name or an organization's name"))
+		#	elif self.organization:
+		#		self.lead_name = self.organization
+		#	elif self.email:
+		#		self.lead_name = self.email.split("@")[0]
+		#	else:
+		#		self.lead_name = "Unnamed Lead"
 
 	def set_title(self):
-		self.title = self.organization or self.lead_name
+                pass
+		#self.title = self.organization or self.lead_name
 
 	def validate_email(self):
 		if self.email:
@@ -351,22 +355,29 @@ def convert_to_deal(lead):
         lead_doc.status = "Qualified"
     lead_doc.converted = 1
 
-
     lead_doc.save(ignore_permissions=True)
 
-
-    # Create deal
+    # Create deal and copy relevant fields
     deal = frappe.get_doc({
         "doctype": "CRM Deal",
         "naming_series": "CRM-DEAL-.YYYY.-",
         "lead": lead_doc.name,
         "lead_name": lead_doc.lead_name,
         "status": "Qualification",
-        "deal_owner": frappe.session.user
+        "deal_owner": frappe.session.user,
+        # Map common fields
+        "email": lead_doc.email,
+        "mobile_no": lead_doc.phone,
+        "source": lead_doc.source,
+        "gender": lead_doc.gender,
+        "salutation": lead_doc.salutation,
+        "first_name": lead_doc.first_name,
+        "last_name": lead_doc.last_name,
     })
     deal.insert(ignore_permissions=True)
 
     return deal.name
+
 
 def get_permission_query_conditions_for_crm_lead(user):
     if "System Manager" in frappe.get_roles(user):

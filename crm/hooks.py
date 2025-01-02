@@ -1,12 +1,15 @@
 app_name = "crm"
 app_title = "Frappe CRM"
 app_publisher = "Frappe Technologies Pvt. Ltd."
-app_description = "Kick-ass Open Source CRM"
-app_email = "shariq@frappe.io"
+app_description = "Open Source CRM"
+app_email = "roaaabdelhadyy@gmail.com"
 app_license = "AGPLv3"
 app_icon_url = "/assets/crm/images/logo.svg"
 app_icon_title = "CRM"
 app_icon_route = "/crm"
+app_include_js = [
+    "https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js",
+]
 
 # Apps
 # ------------------
@@ -159,12 +162,18 @@ doc_events = {
 	},
         "CRM Lead": {
 		"on_update": ["crm.forkanban.handle_status_change"],
+                "validate": ["crm.assignment_rule.assign_lead_to_sales_group"],
+                #"after_insert": ["crm.assign_to.after_insert_assign_lead_to_sales_group"],
 	},
 	"User": {
 		"before_validate": ["crm.api.demo.validate_user"],
 	}
 }
-
+# doc_events = {
+#     "Lead": {
+#         "validate": "path.to.this.script.assign_lead_to_sales_group"
+#     }
+# }
 # Scheduled Tasks
 # ---------------
 

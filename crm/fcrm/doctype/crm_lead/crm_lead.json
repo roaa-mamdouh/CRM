@@ -19,6 +19,7 @@
   "rating",
   "details",
   "job_title",
+  "city",
   "source",
   "lead_owner",
   "feedback",
@@ -26,6 +27,7 @@
   "section_break_uixv",
   "naming_series",
   "lead_name",
+  "created_on",
   "middle_name",
   "gender",
   "column_break_dbsv",
@@ -203,12 +205,22 @@
    "fieldtype": "Text",
    "in_list_view": 1,
    "label": "FeedBack"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "created_on",
+   "fieldtype": "Date",
+   "label": "Created On"
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-26 11:33:35.892781",
+ "modified": "2025-01-01 16:34:52.256500",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",

@@ -13,14 +13,15 @@ from crm.fcrm.doctype.crm_status_change_log.crm_status_change_log import add_sta
 
 class CRMDeal(Document):
 	def before_validate(self):
+                pass
 		#self.set_sla()
-		existing_lead_name = frappe.db.get_value('CRM Lead', {'phone': self.phone}, 'name')
+		#existing_lead_name = frappe.db.get_value('CRM Lead', {'phone': self.phone}, 'name')
 
-		if existing_lead_name:
-			frappe.db.set_value('CRM Lead', {"name": existing_lead_name}, "duplicated", 1)
-			frappe.msgprint(f"Duplicate lead found: {existing_lead_name}")
-		else:
-			frappe.msgprint("No duplicate lead found.")
+		#if existing_lead_name:
+		#	frappe.db.set_value('CRM Deal', {"name": existing_lead_name}, "duplicated", 1)
+		#	frappe.msgprint(f"Duplicate lead found: {existing_lead_name}")
+		#else:
+		#	frappe.msgprint("No duplicate lead found.")
 
 	def validate(self):
 		#self.set_primary_contact()
@@ -53,28 +54,29 @@ class CRMDeal(Document):
 	#				d.is_primary = 0
 
 	def set_primary_email_mobile_no(self):
-		if not self.contacts:
-			self.email = ""
-			self.mobile_no = ""
-			self.phone = ""
-			return
+                pass
+		#if not self.contacts:
+		#	self.email = ""
+		#	self.mobile_no = ""
+		#	self.phone = ""
+		#	return
 
-		if len([contact for contact in self.contacts if contact.is_primary]) > 1:
-			frappe.throw(_("Only one {0} can be set as primary.").format(frappe.bold("Contact")))
+		#if len([contact for contact in self.contacts if contact.is_primary]) > 1:
+		#	frappe.throw(_("Only one {0} can be set as primary.").format(frappe.bold("Contact")))
 
-		primary_contact_exists = False
-		for d in self.contacts:
-			if d.is_primary == 1:
-				primary_contact_exists = True
-				self.email = d.email.strip() if d.email else ""
-				self.mobile_no = d.mobile_no.strip() if d.mobile_no else ""
-				self.phone = d.phone.strip() if d.phone else ""
-				break
+		#primary_contact_exists = False
+		#for d in self.contacts:
+		#	if d.is_primary == 1:
+		#		primary_contact_exists = True
+		#		self.email = d.email.strip() if d.email else ""
+		#		self.mobile_no = d.mobile_no.strip() if d.mobile_no else ""
+		#		self.phone = d.phone.strip() if d.phone else ""
+		#		break
 
-		if not primary_contact_exists:
-			self.email = ""
-			self.mobile_no = ""
-			self.phone = ""
+		#if not primary_contact_exists:
+		#	self.email = ""
+		#	self.mobile_no = ""
+		#	self.phone = ""
 
 	def assign_agent(self, agent):
 		if not agent:

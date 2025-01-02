@@ -2,7 +2,8 @@
  "based_on": "creation",
  "chart_name": "Incoming Leads!",
  "chart_type": "Count",
- "creation": "2024-11-18 22:20:07.011058",
+ "color": "#000000",
+ "creation": "2024-12-26 15:10:34.862758",
  "custom_options": "{\"type\": \"line\", \"axisOptions\": {\"shortenYAxisNumbers\": 1}, \"tooltipOptions\": {}, \"lineOptions\": {\"regionFill\": 1}}",
  "docstatus": 0,
  "doctype": "Dashboard Chart",
@@ -13,15 +14,19 @@
  "idx": 0,
  "is_public": 1,
  "is_standard": 1,
- "last_synced_on": "2024-11-18 02:00:40.891388",
- "modified": "2024-11-18 22:20:07.011058",
+ "last_synced_on": "2024-12-29 11:26:46.275515",
+ "modified": "2024-12-29 11:27:07.482260",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "Incoming Leads!",
  "number_of_groups": 0,
  "owner": "Administrator",
  "parent_document_type": "",
- "roles": [],
+ "roles": [
+  {
+   "role": "All"
+  }
+ ],
  "source": "",
  "time_interval": "Weekly",
  "timeseries": 1,
