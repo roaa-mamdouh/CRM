@@ -9,13 +9,13 @@
   "doctype_event": "After Save",
   "enable_rate_limit": 0,
   "event_frequency": "All",
-  "modified": "2024-12-05 13:45:01.150126",
+  "modified": "2025-01-01 15:08:57.283048",
   "module": "FCRM",
   "name": "Duplicate Lead Notification",
   "rate_limit_count": 5,
   "rate_limit_seconds": 86400,
   "reference_doctype": "CRM Lead",
-  "script": "def send_notification(doc, method):\n    \"\"\"\n    Sends a notification to the specified recipient when the 'duplicated' label of a CRM Lead is changed to 'true'.\n    \"\"\"\n    if doc.doctype == \"CRM Lead\" and doc.duplicated and doc.has_value_changed('duplicated'):\n        recipient = \"mamdouhroaa3@gmail.com\"  # Replace with the actual user ID\n        subject = \"Duplicate Lead Detected\"\n        message = f\"Lead {doc.name} has been marked as duplicate.\"\n\n        notification_doc = frappe.get_doc({\n            \"doctype\": \"Notification Log\",\n            \"for_user\": recipient,\n            \"subject\": subject,\n            \"email_content\": message,\n            \"type\": \"Alert\"\n        })\n\n        notification_doc.insert(ignore_permissions=True)\n        frappe.db.commit()\n        frappe.msgprint(f\"Notification sent to {recipient}\")\n\n# Add a hook to trigger the function when a Lead is updated\nfrappe.utils.add_to_date_hook(\"CRM Lead\", \"on_update\", send_notification)",
+  "script": "def send_notification(doc, method):\n  \"\"\"\n  Sends a system notification to the 'Sales Manager' role \n  when the 'duplicated' label of a CRM Lead is changed to 'true'.\n  \"\"\"\n  if doc.doctype == \"CRM Lead\" and doc.duplicated and doc.has_value_changed('duplicated'):\n    recipients = frappe.get_roles_users(\"Sales Manager\") \n    subject = \"Duplicate Lead Detected\"\n    message = f\"Lead {doc.name} has been marked as duplicate.\"\n\n    from frappe import notify\n    notify.send(\n        recipients=recipients,\n        subject=subject,\n        message=message,\n        is_system_notification=True\n    )\n\n# Add a hook to trigger the function when a Lead is updated\nfrappe.utils.add_to_doc_hook(\"CRM Lead\", \"on_update\", send_notification)",
   "script_type": "DocType Event"
  }
 ]

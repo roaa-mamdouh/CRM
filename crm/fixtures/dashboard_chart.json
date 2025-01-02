@@ -17,14 +17,21 @@
   "heatmap_year": null,
   "is_public": 1,
   "is_standard": 1,
-  "last_synced_on": "2024-12-29 10:36:22.431023",
-  "modified": "2024-12-28 15:26:38.456715",
+  "last_synced_on": "2025-01-01 16:26:10.114239",
+  "modified": "2024-12-29 11:27:07.482260",
   "module": "FCRM",
   "name": "Incoming Leads!",
   "number_of_groups": 0,
   "parent_document_type": "",
   "report_name": null,
-  "roles": [],
+  "roles": [
+   {
+    "parent": "Incoming Leads!",
+    "parentfield": "roles",
+    "parenttype": "Dashboard Chart",
+    "role": "All"
+   }
+  ],
   "source": "",
   "time_interval": "Weekly",
   "timeseries": 1,
@@ -54,7 +61,7 @@
   "heatmap_year": null,
   "is_public": 1,
   "is_standard": 0,
-  "last_synced_on": "2024-12-29 10:36:20.583349",
+  "last_synced_on": "2025-01-01 15:26:31.847681",
   "modified": "2024-12-28 15:42:32.437925",
   "module": "FCRM",
   "name": "Leads by Source",
