@@ -21,6 +21,8 @@
   "job_title",
   "city",
   "source",
+  "automatic_assignmentt",
+  "in_import",
   "lead_owner",
   "feedback",
   "organization_tab",
@@ -86,7 +88,6 @@
    "label": "Status",
    "no_copy": 1,
    "options": "Visiting\nShowing\nJunk\nUnqualified\nQualified\nNurture\nNot Available\nNew",
-   "reqd": 1,
    "search_index": 1
   },
   {
@@ -215,12 +216,25 @@
    "fieldname": "created_on",
    "fieldtype": "Date",
    "label": "Created On"
+  },
+  {
+   "default": "0",
+   "fieldname": "automatic_assignmentt",
+   "fieldtype": "Check",
+   "label": "Automatic Assignment"
+  },
+  {
+   "default": "0",
+   "fieldname": "in_import",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "In Import"
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-01 16:34:52.256500",
+ "modified": "2025-01-02 13:26:23.356677",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",

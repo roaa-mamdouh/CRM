@@ -4,16 +4,16 @@ from frappe.utils import cint
 def assign_lead_to_sales_group(doc, method):
     """
     Assign a lead to a user with a specific role profile (e.g., "Sales") only when the lead is first created.
-    Ensures load balancing among available users (users not marked as 'is_absent').
+    Ensures load balancing among users and excludes absent users.
     """
     if doc.is_new() and not doc.lead_owner:  # Only assign if the lead is new and lead_owner is empty
-        # Get all users with the "Sales" role profile who are enabled and not absent
+        # Get all users with the "Sales" role profile who are not absent
         sales_users = frappe.get_all(
             "User",
             filters={
                 "role_profile_name": "Sales",
                 "enabled": 1,
-                "is_absent": 0  # Ensure 'is_absent' is unchecked
+                "is_absent": 0,  # Exclude users marked as absent
             },
             fields=["name"],
         )
