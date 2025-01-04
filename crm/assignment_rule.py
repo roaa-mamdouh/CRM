@@ -6,6 +6,7 @@ def assign_lead_to_sales_group(doc, method):
     """
     Assign a lead to a user with a specific role profile (e.g., "Sales") only when the lead is first created.
     Ensures load balancing among users and excludes absent users.
+    If all users are absent, the lead is saved without assignment.
     """
     if doc.is_new() and not doc.lead_owner:  # Only assign if the lead is new and lead_owner is empty
         # Check if this lead is being imported via the Data Import doctype
@@ -29,9 +30,8 @@ def assign_lead_to_sales_group(doc, method):
                     alert=True,
                 )
                 return
-        
-        # If we're not in an import context, or automatic assignment is enabled,
-        # proceed with automatic assignment logic
+
+        # Fetch available sales users who are not absent
         sales_users = frappe.get_all(
             "User",
             filters={
@@ -43,7 +43,14 @@ def assign_lead_to_sales_group(doc, method):
         )
 
         if not sales_users:
-            frappe.throw("No available users found with the 'Sales' role profile.")
+            # No available users; allow saving without assignment
+            frappe.msgprint(
+                msg="No available sales users found. The lead will be saved without assignment.",
+                title="Lead Assignment",
+                indicator="orange",
+                alert=True,
+            )
+            return
 
         # Extract user names
         sales_usernames = [user["name"] for user in sales_users]
