@@ -88,6 +88,7 @@
    "label": "Status",
    "no_copy": 1,
    "options": "Visiting\nShowing\nJunk\nUnqualified\nQualified\nNurture\nNot Available\nNew",
+   "reqd": 1,
    "search_index": 1
   },
   {
@@ -101,6 +102,7 @@
    "fieldname": "phone",
    "fieldtype": "Data",
    "label": "Phone",
+   "reqd": 1,
    "unique": 1
   },
   {
@@ -234,7 +236,7 @@
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-02 13:26:23.356677",
+ "modified": "2025-01-04 17:32:46.670800",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",
