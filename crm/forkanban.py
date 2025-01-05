@@ -1,8 +1,11 @@
 import frappe
 
 def handle_status_change(doc, method):
-    # Only proceed for specific statuses
-    if doc.status not in ['Showing', 'Visiting']:
+    # Fetch the document's previous state
+    previous_doc = doc.get_doc_before_save()
+    
+    # Only proceed if the status field has changed and is relevant
+    if not previous_doc or doc.status == previous_doc.status or doc.status not in ['Showing', 'Visiting']:
         return
 
     # Define the dynamic filter field
@@ -35,6 +38,7 @@ def handle_status_change(doc, method):
             f"<b>{doc.status} event(s) already exist for Lead {doc.name}:</b><br>{table_html}",
             title="Existing Events"
         )
+
 
 def generate_event_table(events):
     # Generate HTML table for events
