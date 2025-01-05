@@ -98,7 +98,7 @@
    "in_standard_filter": 1,
    "label": "Status",
    "no_copy": 1,
-   "options": "Visiting\nShowing\nJunk\nUnqualified\nQualified\nNurture\nNot Available\nNew",
+   "options": "Visiting\nShowing\nJunk\nUnqualified\nQualified\nNurture\nNot Available\nNew\nMade A Reservation",
    "reqd": 1,
    "search_index": 1
   },
@@ -307,7 +307,11 @@
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
+<<<<<<< Updated upstream
  "modified": "2024-11-26 18:07:53.341015",
+=======
+ "modified": "2025-01-05 15:17:54.195760",
+>>>>>>> Stashed changes
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",
