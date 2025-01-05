@@ -46,10 +46,12 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "User",
    "fieldname": "assigned_to",
    "fieldtype": "Link",
    "label": "Assigned To",
-   "options": "User"
+   "options": "User",
+   "read_only_depends_on": "eval:frappe.user_roles.includes('Sales User')\n"
   },
   {
    "default": "Backlog",
@@ -115,7 +117,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-18 19:52:33.391120",
+ "modified": "2025-01-04 22:29:39.985465",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Task",

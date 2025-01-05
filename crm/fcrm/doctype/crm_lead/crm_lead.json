@@ -70,7 +70,8 @@
   {
    "fieldname": "last_name",
    "fieldtype": "Data",
-   "label": "Last Name"
+   "label": "Last Name",
+   "reqd": 1
   },
   {
    "fieldname": "gender",
@@ -87,7 +88,7 @@
    "in_standard_filter": 1,
    "label": "Status",
    "no_copy": 1,
-   "options": "Visiting\nShowing\nJunk\nUnqualified\nQualified\nNurture\nNot Available\nNew",
+   "options": "Visiting\nShowing\nJunk\nUnqualified\nQualified\nFollow Up\nNot Available\nNew",
    "reqd": 1,
    "search_index": 1
   },
@@ -101,9 +102,9 @@
   {
    "fieldname": "phone",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Phone",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "section_break_uixv",
@@ -236,7 +237,7 @@
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-04 17:32:46.670800",
+ "modified": "2025-01-05 14:07:21.612831",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",
