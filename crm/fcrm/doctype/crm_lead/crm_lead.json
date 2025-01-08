@@ -16,6 +16,8 @@
   "last_name",
   "email",
   "phone",
+  "project",
+  "unit",
   "rating",
   "details",
   "job_title",
@@ -104,6 +106,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Phone",
+   "length": 140,
    "reqd": 1
   },
   {
@@ -123,7 +126,7 @@
   {
    "fieldname": "annual_revenue",
    "fieldtype": "Currency",
-   "label": "Annual Revenue"
+   "label": "Budget"
   },
   {
    "fieldname": "lead_owner",
@@ -232,12 +235,25 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "In Import"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Table MultiSelect",
+   "label": "Project",
+   "link_filters": "[[\"Property\",\"is_group\",\"=\",1]]",
+   "options": "Property Multiselect"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Table MultiSelect",
+   "label": "Unit",
+   "options": "Units Multiselect"
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-05 16:49:56.417093",
+ "modified": "2025-01-08 14:17:48.402716",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",
