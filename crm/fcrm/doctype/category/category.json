@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_import": 1,
- "allow_rename": 1,
+ "autoname": "autoincrement",
  "creation": "2024-12-01 12:26:57.438084",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -14,15 +14,17 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Category",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-24 17:42:04.293812",
+ "modified": "2025-01-08 13:44:20.231268",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "Category",
+ "naming_rule": "Autoincrement",
  "owner": "Administrator",
  "permissions": [
   {

@@ -389,3 +389,17 @@ def get_permission_query_conditions_for_crm_lead(user):
             f"or `tabCRM Lead`.lead_owner = {escaped_user}) "
             f"or (`tabCRM Lead`.name in (select `tabCRM Lead`.name from `tabCRM Lead` where (`tabCRM Lead`._assign like '%\"{user}\"%')))"
         )
+
+@frappe.whitelist()
+def validate_duplicate_phone(self, method=None):
+    existing_lead = frappe.db.get_value(
+        "CRM Lead",
+        {"phone": self.phone, "name": ("!=", self.name)},
+        ["name", "lead_owner"]
+    )
+    if existing_lead:
+        frappe.throw(
+            _("Phone number already exists for Lead {0}. Lead Owner is {1}").format(
+                existing_lead.name, existing_lead.lead_owner
+            )
+        )
