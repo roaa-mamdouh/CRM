@@ -12,12 +12,11 @@
  "field_order": [
   "person_tab",
   "salutation",
+  "lead_name",
   "first_name",
   "last_name",
   "email",
   "phone",
-  "project",
-  "unit",
   "rating",
   "details",
   "job_title",
@@ -30,7 +29,6 @@
   "organization_tab",
   "section_break_uixv",
   "naming_series",
-  "lead_name",
   "created_on",
   "middle_name",
   "gender",
@@ -61,8 +59,8 @@
   {
    "fieldname": "first_name",
    "fieldtype": "Data",
-   "label": "First Name",
-   "reqd": 1
+   "hidden": 1,
+   "label": "First Name"
   },
   {
    "fieldname": "middle_name",
@@ -72,8 +70,8 @@
   {
    "fieldname": "last_name",
    "fieldtype": "Data",
-   "label": "Last Name",
-   "reqd": 1
+   "hidden": 1,
+   "label": "Last Name"
   },
   {
    "fieldname": "gender",
@@ -106,7 +104,6 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Phone",
-   "length": 140,
    "reqd": 1
   },
   {
@@ -126,7 +123,7 @@
   {
    "fieldname": "annual_revenue",
    "fieldtype": "Currency",
-   "label": "Budget"
+   "label": "Annual Revenue"
   },
   {
    "fieldname": "lead_owner",
@@ -151,7 +148,7 @@
    "fieldname": "lead_name",
    "fieldtype": "Data",
    "label": "Full Name",
-   "search_index": 1
+   "reqd": 1
   },
   {
    "fieldname": "job_title",
@@ -235,25 +232,12 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "In Import"
-  },
-  {
-   "fieldname": "project",
-   "fieldtype": "Table MultiSelect",
-   "label": "Project",
-   "link_filters": "[[\"Property\",\"is_group\",\"=\",1]]",
-   "options": "Property Multiselect"
-  },
-  {
-   "fieldname": "unit",
-   "fieldtype": "Table MultiSelect",
-   "label": "Unit",
-   "options": "Units Multiselect"
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-08 14:17:48.402716",
+ "modified": "2025-01-08 23:27:31.088188",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",
