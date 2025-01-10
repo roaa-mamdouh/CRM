@@ -3,7 +3,7 @@
 1. [Install Bench](https://github.com/frappe/bench).
 2. Install CRM app:
     ```sh
-    $ bench get-app (https://github.com/roaa-mamdouh/CRM.git)
+    $ bench get-app https://github.com/roaa-mamdouh/CRM.git
     ```
 3. Create a site with the crm app:
     ```sh
