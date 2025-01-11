@@ -17,6 +17,8 @@
   "last_name",
   "email",
   "phone",
+  "project",
+  "unit",
   "rating",
   "details",
   "job_title",
@@ -34,7 +36,6 @@
   "gender",
   "column_break_dbsv",
   "status",
-  "no_of_employees",
   "annual_revenue",
   "image",
   "converted",
@@ -115,15 +116,9 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "no_of_employees",
-   "fieldtype": "Select",
-   "label": "No. of Employees",
-   "options": "1-10\n11-50\n51-200\n201-500\n501-1000\n1000+"
-  },
-  {
    "fieldname": "annual_revenue",
    "fieldtype": "Currency",
-   "label": "Annual Revenue"
+   "label": "Budget"
   },
   {
    "fieldname": "lead_owner",
@@ -232,12 +227,26 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "In Import"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "link_filters": "[[\"Property\",\"is_group\",\"=\",1]]",
+   "options": "Property"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "link_filters": "[[\"Property\",\"is_group\",\"=\",0]]",
+   "options": "Property"
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-08 23:27:31.088188",
+ "modified": "2025-01-11 08:56:26.294753",
  "modified_by": "Administrator",
  "module": "FCRM",
  "name": "CRM Lead",
