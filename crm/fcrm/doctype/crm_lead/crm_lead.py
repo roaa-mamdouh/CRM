@@ -394,12 +394,15 @@ def get_permission_query_conditions_for_crm_lead(user):
 def validate_duplicate_phone(self, method=None):
     existing_lead = frappe.db.get_value(
         "CRM Lead",
-        {"phone": self.phone, "name": ("!=", self.name)},
+        {"phone": self.phone, "name": ("!=", self.name), "duplicated": ("!=", 1)},
         ["name", "lead_owner"]
     )
     if existing_lead:
+        self.duplicated = 1
         frappe.throw(
             _("Phone number already exists for Lead {0}. Lead Owner is {1}").format(
-                existing_lead.name, existing_lead.lead_owner
+                existing_lead.lead_name, existing_lead.lead_owner
             )
         )
+
+
