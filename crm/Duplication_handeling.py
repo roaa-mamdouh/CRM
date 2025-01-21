@@ -7,6 +7,7 @@ def mark_duplicates(doc, method):
             "CRM Lead",
             filters={
                 "phone": doc.phone,
+                "name": ["!=", doc.name]  # Exclude the current document
             },
             fields=["name", "lead_owner"]
         )
