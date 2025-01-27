@@ -6,7 +6,7 @@ import frappe
 from frappe import _
 from frappe.desk.form.assign_to import add as assign
 from frappe.model.document import Document
-
+from typing import Optional
 from frappe.utils import has_gravatar, validate_email_address
 from crm.fcrm.doctype.crm_service_level_agreement.utils import get_sla
 from crm.fcrm.doctype.crm_status_change_log.crm_status_change_log import add_status_change_log
@@ -379,16 +379,10 @@ def convert_to_deal(lead):
     return deal.name
 
 
-def get_permission_query_conditions_for_crm_lead(user):
-    if "System Manager" in frappe.get_roles(user):
-        return None
-    elif "Sales User" in frappe.get_roles(user):
-        escaped_user = frappe.db.escape(user)
-        return (
-            f"(`tabCRM Lead`.owner = {escaped_user} "
-            f"or `tabCRM Lead`.lead_owner = {escaped_user}) "
-            f"or (`tabCRM Lead`.name in (select `tabCRM Lead`.name from `tabCRM Lead` where (`tabCRM Lead`._assign like '%\"{user}\"%')))"
-        )
+
+        
+
+        
 
 @frappe.whitelist()
 def validate_duplicate_phone(self, method=None):
@@ -404,5 +398,45 @@ def validate_duplicate_phone(self, method=None):
                 existing_lead.lead_name, existing_lead.lead_owner
             )
         )
+#heba
 
 
+def get_permission_query_conditions_for_crm_lead(user):
+    if "System Manager" in frappe.get_roles(user):
+        # System Managers have full access
+        return None
+    
+    elif "Sales Manager" in frappe.get_roles(user):
+        # Check if the Sales Manager is also a Team Leader
+        is_team_leader = frappe.db.exists("Team", {"team_leader": user})
+        
+        if is_team_leader:
+            # User is a Team Leader with Sales Manager role - restrict to team members' leads
+            escaped_user = frappe.db.escape(user)
+            return f"""
+                `tabCRM Lead`.lead_owner IN (
+                    SELECT team_member 
+                    FROM `tabMember` 
+                    WHERE parent IN (
+                        SELECT name 
+                        FROM `tabTeam` 
+                        WHERE team_leader = {escaped_user}
+                    )
+                )
+            """
+        else:
+            # User is a Sales Manager but not a Team Leader - full access
+            return None
+    
+    elif "Sales User" in frappe.get_roles(user):
+        # Regular Sales User - restrict to their own leads
+        escaped_user = frappe.db.escape(user)
+        return f"""
+            (`tabCRM Lead`.owner = {escaped_user} 
+            OR `tabCRM Lead`.lead_owner = {escaped_user}) 
+            OR (`tabCRM Lead`.name IN (
+                SELECT `tabCRM Lead`.name 
+                FROM `tabCRM Lead` 
+                WHERE `tabCRM Lead`._assign LIKE CONCAT('%', {escaped_user}, '%')
+            ))
+        """
