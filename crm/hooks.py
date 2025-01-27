@@ -160,11 +160,12 @@ doc_events = {
 	"CRM Deal": {
 		"on_update": ["crm.fcrm.doctype.erpnext_crm_settings.erpnext_crm_settings.create_customer_in_erpnext"],
 	},
-        "CRM Lead": {
+    "CRM Lead": {
 		"on_update": ["crm.forkanban.handle_status_change"],
         "before_insert": ["crm.assignment_rule.assign_lead_to_sales_group"],
         "before_insert": ["crm.Duplication_handeling.mark_duplicates"],
         #"after_insert": ["crm.assign_to.after_insert_assign_lead_to_sales_group"],
+       
 	},
 	"User": {
 		"before_validate": ["crm.api.demo.validate_user"],

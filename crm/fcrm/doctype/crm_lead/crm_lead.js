@@ -6,3 +6,6 @@ frappe.ui.form.on("CRM Lead", {
 		frm.add_web_link(`/crm/leads/${frm.doc.name}`, __("Open in Portal"));
 	},
 });
+
+
+  
