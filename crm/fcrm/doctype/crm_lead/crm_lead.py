@@ -405,44 +405,39 @@ from typing import Optional
 
 def get_permission_query_conditions_for_crm_lead(user):
     if "System Manager" in frappe.get_roles(user):
-        # System Managers have full access
         return None
     
     elif "Sales Manager" in frappe.get_roles(user):
-        # Check if the Sales Manager is also a Team Leader
         is_team_leader = frappe.db.exists("Team", {"team_leader": user})
         
         if is_team_leader:
-            # User is a Team Leader with Sales Manager role - restrict to team members' and own leads
             escaped_user = frappe.db.escape(user)
             return f"""
                 (
-                    tabCRM Lead.lead_owner IN (
-                        SELECT member 
-                        FROM tabMember 
-                        WHERE parent IN (
-                            SELECT name 
-                            FROM tabTeam 
-                            WHERE team_leader = {escaped_user}
-                        )
+                    `tabCRM Lead`.`lead_owner` IN (
+                        SELECT `m`.`member`
+                        FROM `tabMember` m
+                        JOIN `tabTeam` t ON m.`parent` = t.`name`
+                        WHERE t.`team_leader` = {escaped_user}
                     )
-                    OR tabCRM Lead.lead_owner = {escaped_user} 
-                    OR tabCRM Lead.owner = {escaped_user}
+                    OR `tabCRM Lead`.`lead_owner` = {escaped_user} 
+                    OR `tabCRM Lead`.`owner` = {escaped_user}
                 )
             """
         else:
-            # User is a Sales Manager but not a Team Leader - full access
             return None
     
     elif "Sales User" in frappe.get_roles(user):
-        # Regular Sales User - restrict to their own leads
         escaped_user = frappe.db.escape(user)
         return f"""
-            (tabCRM Lead.owner = {escaped_user} 
-            OR tabCRM Lead.lead_owner = {escaped_user}) 
-            OR (tabCRM Lead.name IN (
-                SELECT tabCRM Lead.name 
-                FROM tabCRM Lead 
-                WHERE tabCRM Lead._assign LIKE CONCAT('%', {escaped_user}, '%')
-            ))
+            (
+                `tabCRM Lead`.`owner` = {escaped_user} 
+                OR `tabCRM Lead`.`lead_owner` = {escaped_user}
+                OR `tabCRM Lead`.`name` IN (
+                    SELECT `tabCRM Lead`.`name` 
+                    FROM `tabCRM Lead` 
+                    WHERE `tabCRM Lead`._assign LIKE CONCAT('%', {escaped_user}, '%')
+                )
+            )
         """
+
