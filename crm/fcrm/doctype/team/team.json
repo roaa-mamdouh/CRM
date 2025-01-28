@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:team_leader",
+ "creation": "2025-01-28 12:46:24.154840",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "team_leader",
+  "team_member"
+ ],
+ "fields": [
+  {
+   "fieldname": "team_leader",
+   "fieldtype": "Link",
+   "label": "Team Leader",
+   "link_filters": "[[\"User\",\"role_profile_name\",\"=\",\"CRM Team Leader\"]]",
+   "options": "User",
+   "unique": 1
+  },
+  {
+   "fieldname": "team_member",
+   "fieldtype": "Table",
+   "label": "Team Member",
+   "options": "Member"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-28 13:18:38.350522",
+ "modified_by": "Administrator",
+ "module": "FCRM",
+ "name": "Team",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
