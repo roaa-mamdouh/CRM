@@ -413,17 +413,21 @@ def get_permission_query_conditions_for_crm_lead(user):
         is_team_leader = frappe.db.exists("Team", {"team_leader": user})
         
         if is_team_leader:
-            # User is a Team Leader with Sales Manager role - restrict to team members' leads
+            # User is a Team Leader with Sales Manager role - restrict to team members' and own leads
             escaped_user = frappe.db.escape(user)
             return f"""
-                tabCRM Lead.lead_owner IN (
-                    SELECT member 
-                    FROM tabMember 
-                    WHERE parent IN (
-                        SELECT name 
-                        FROM tabTeam 
-                        WHERE team_leader = {escaped_user}
+                (
+                    tabCRM Lead.lead_owner IN (
+                        SELECT member 
+                        FROM tabMember 
+                        WHERE parent IN (
+                            SELECT name 
+                            FROM tabTeam 
+                            WHERE team_leader = {escaped_user}
+                        )
                     )
+                    OR tabCRM Lead.lead_owner = {escaped_user} 
+                    OR tabCRM Lead.owner = {escaped_user}
                 )
             """
         else:
