@@ -401,6 +401,8 @@ def validate_duplicate_phone(self, method=None):
 #heba
 
 
+from typing import Optional
+
 def get_permission_query_conditions_for_crm_lead(user):
     if "System Manager" in frappe.get_roles(user):
         # System Managers have full access
@@ -412,6 +414,7 @@ def get_permission_query_conditions_for_crm_lead(user):
         
         if is_team_leader:
             # User is a Team Leader with Sales Manager role - restrict to team members' leads
+            escaped_user = frappe.db.escape(user)
             return f"""
                 tabCRM Lead.lead_owner IN (
                     SELECT member 
@@ -419,7 +422,7 @@ def get_permission_query_conditions_for_crm_lead(user):
                     WHERE parent IN (
                         SELECT name 
                         FROM tabTeam 
-                        WHERE team_leader = {frappe.db.escape(user)}
+                        WHERE team_leader = {escaped_user}
                     )
                 )
             """
@@ -431,11 +434,11 @@ def get_permission_query_conditions_for_crm_lead(user):
         # Regular Sales User - restrict to their own leads
         escaped_user = frappe.db.escape(user)
         return f"""
-            (`tabCRM Lead`.owner = {escaped_user} 
+            (tabCRM Lead.owner = {escaped_user} 
             OR tabCRM Lead.lead_owner = {escaped_user}) 
-            OR (`tabCRM Lead`._assign LIKE CONCAT('%', {escaped_user}, '%'))
+            OR (tabCRM Lead.name IN (
+                SELECT tabCRM Lead.name 
+                FROM tabCRM Lead 
+                WHERE tabCRM Lead._assign LIKE CONCAT('%', {escaped_user}, '%')
+            ))
         """
-    
-    # Default condition (no access)
-    return "1=0"
-
